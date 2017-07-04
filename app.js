@@ -70,8 +70,31 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "My name is Arthur and I can send you a reminder every day. Do you want to get reminders?";
+      var message = greeting + "My name is Arthur and I can send you a reminder every day.";
       sendMessage(senderId, {text: message});
+
+      message = {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"button",
+            "text":"Do you want to get reminders?",
+            "buttons":[
+              {
+                "type":"postback",
+                "title":"Yes",
+                "payload":"ChangeTimeYES"
+              },
+              {
+                "type":"postback",
+                "title":"No",
+                "payload":"ChangeTimeNO"
+              }
+            ]
+          }
+        }
+      }
+      sendMessage(senderId, message);
     });
   }
   else if (payload === "ChangeTimeYES") {
