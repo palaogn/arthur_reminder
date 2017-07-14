@@ -118,14 +118,14 @@ function processMessage(event) {
       var formattedMsg = message.text.toLowerCase().trim();
 
       switch (formattedMsg) {
-        case String(formattedMsg.match(/.* hi .*/)):
-        case "hello":
-        case "good morning":
+        case String(formattedMsg.match(/.*hi.*/)):
+        case String(formattedMsg.match(/.*hello.*/)):
+        case String(formattedMsg.match(/.*good morning.*/)):
           sendMessage(senderId, {text: "Hey there"});
           break;
         case String(formattedMsg.match(/.*change.*/)):
-        case "schedule":
-        case "date":
+        case String(formattedMsg.match(/.*schedule.*/))::
+        case String(formattedMsg.match(/.*date.*/)):
           sendMessage(senderId, {text: "You want to change time"});
           break;
 
