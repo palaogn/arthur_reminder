@@ -98,11 +98,52 @@ function processPostback(event) {
     });
   }
   else if (payload === "ChangeTimeYES") {
+	  sendTimeOptions();
       updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
     sendMessage(senderId, {text: "Alright, then we will not change the time"});
   }
+  else if(payload == "Time01" || payload == "Time02" || payload == "Time03" || payload == "Time04"){
+	sendMessage(senderId, {text: "Alright, then we will send you reminder at that time"});
+  }
+}
+
+function sendTimeOptions(){
+	
+	message = {
+		"attachment":{
+		  "type":"template",
+			"payload":{
+				"template_type":"button",
+				"text":"When do you want to get reminders?",
+				"buttons":[
+					{
+						"type":"postback",
+						"title":"1:00",
+						"payload":"Time01"
+					},
+					{
+						"type":"postback",
+						"title":"2:00",
+						"payload":"Time02"
+					}
+					{
+						"type":"postback",
+						"title":"3:00",
+						"payload":"Time03"
+					},
+					{
+						"type":"postback",
+						"title":"4:00",
+						"payload":"Time04"
+					}
+				]
+			}
+		}
+	}
+	sendMessage(senderId, message);	
+	
 }
 
 function processMessage(event) {
