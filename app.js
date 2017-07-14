@@ -103,42 +103,42 @@ function processPostback(event) {
 		"text":"Pick a time:",
 		"quick_replies":[
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"One",
 			"payload":"TimeOne"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"Two",
 			"payload":"TimeTwo"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"Three",
 			"payload":"TimeThree"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"Four",
 			"payload":"TimeFour"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"Five",
 			"payload":"TimeFive"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"Six",
 			"payload":"Timesix"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"Seven",
 			"payload":"TimeSeven"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"postback",
 			"title":"Eight",
 			"payload":"TimeEight"
 		  }
