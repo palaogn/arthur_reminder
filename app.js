@@ -127,7 +127,7 @@ function sendTimeOptions(){
 						"type":"postback",
 						"title":"2:00",
 						"payload":"Time02"
-					}
+					},
 					{
 						"type":"postback",
 						"title":"3:00",
