@@ -104,7 +104,7 @@ function processPostback(event) {
           "type":"template",
           "payload":{
             "template_type":"button",
-            "text":"Do you want to get reminders?",
+            "text":"When do you want to get reminders?",
             "buttons":[
               {
                 "type":"postback",
@@ -120,8 +120,12 @@ function processPostback(event) {
                 "type":"postback",
                 "title":"Three",
                 "payload":"TimeThree"
+              },
+              {
+                "type":"postback",
+                "title":"Four",
+                "payload":"TimeFour"
               }
-			  
             ]
           }
         }
