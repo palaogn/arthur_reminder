@@ -99,19 +99,48 @@ function processPostback(event) {
   }
   else if (payload == "ChangeTimeYES") {
 	  
-	  sendMessage(senderId, {text: "your response was yes"});
 	  message = {
-		"text":"Pick a color:",
+		"text":"Pick a time:",
 		"quick_replies":[
 		  {
 			"content_type":"text",
-			"title":"Red",
-			"payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+			"title":"One",
+			"payload":"TimeOne"
 		  },
 		  {
 			"content_type":"text",
-			"title":"Green",
-			"payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
+			"title":"Two",
+			"payload":"TimeTwo"
+		  },
+		  {
+			"content_type":"text",
+			"title":"Three",
+			"payload":"TimeThree"
+		  },
+		  {
+			"content_type":"text",
+			"title":"Four",
+			"payload":"TimeFour"
+		  },
+		  {
+			"content_type":"text",
+			"title":"Five",
+			"payload":"TimeFive"
+		  },
+		  {
+			"content_type":"text",
+			"title":"Six",
+			"payload":"Timesix"
+		  },
+		  {
+			"content_type":"text",
+			"title":"Seven",
+			"payload":"TimeSeven"
+		  },
+		  {
+			"content_type":"text",
+			"title":"Eight",
+			"payload":"TimeEight"
 		  }
 		]
 	}
