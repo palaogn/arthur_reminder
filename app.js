@@ -117,6 +117,7 @@ function processMessage(event) {
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
 
+      //checks if these words are in the message and replies.
       switch (formattedMsg) {
         case String(formattedMsg.match(/.*hi.*/)):
         case String(formattedMsg.match(/.*hello.*/)):
