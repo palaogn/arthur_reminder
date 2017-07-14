@@ -120,11 +120,6 @@ function processPostback(event) {
                 "type":"postback",
                 "title":"Three",
                 "payload":"TimeThree"
-              },
-              {
-                "type":"postback",
-                "title":"Four",
-                "payload":"TimeFour"
               }
             ]
           }
@@ -136,7 +131,7 @@ function processPostback(event) {
   else if (payload == "ChangeTimeNO"){
     sendMessage(senderId, {text: "Alright, then we will not change the time"});
   }
-  else if(payload == "TimeOne" || payload == "TimeTwo" || payload == "TimeThree" || payload == "TimeFour"){
+  else if(payload == "TimeOne" || payload == "TimeTwo" || payload == "TimeThree"){
 	sendMessage(senderId, {text: "Alright, then we will send you reminder at that time"});
   }
 }
