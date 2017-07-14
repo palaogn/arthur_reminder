@@ -98,7 +98,8 @@ function processPostback(event) {
     });
   }
   else if (payload == "ChangeTimeYES") {
-	  message = {
+	  sendMessage(senderId, {text: "your response was yes"});
+	  var message = {
 		"attachment":{
 		  "type":"template",
 			"payload":{
@@ -129,7 +130,7 @@ function processPostback(event) {
 			}
 		}
 	}
-	sendMessage(senderId, message);	
+	sendMessage(senderId, {text: message});	
     //updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
