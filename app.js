@@ -108,18 +108,18 @@ function processPostback(event) {
             "buttons":[
               {
                 "type":"postback",
-                "title":"Yes",
-                "payload":"ChangeTimeYES"
+                "title":"One",
+                "payload":"TimeOne"
               },
               {
                 "type":"postback",
-                "title":"No",
-                "payload":"ChangeTimeNO"
+                "title":"Two",
+                "payload":"TimeTwo"
               },
               {
                 "type":"postback",
-                "title":"Maybe",
-                "payload":"ChangeTimeMaybe"
+                "title":"Three",
+                "payload":"TimeThree"
               }
 			  
             ]
