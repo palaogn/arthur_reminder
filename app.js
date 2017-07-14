@@ -123,7 +123,7 @@ function processMessage(event) {
         case "good morning":
           sendMessage(senderId, {text: "Hey there"});
           break;
-        case formattedMsg.match(/.*change.*/):
+        case String(formattedMsg.match(/.*change.*/)):
         case "schedule":
         case "date":
           sendMessage(senderId, {text: "You want to change time"});
