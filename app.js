@@ -98,8 +98,7 @@ function processPostback(event) {
     });
   }
   else if (payload === "ChangeTimeYES") {
-
-
+      updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
     sendMessage(senderId, {text: "Alright, then we will not change the time"});
@@ -118,6 +117,16 @@ function processMessage(event) {
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
 
+      switch (formattedMsg) {
+        case "hi" || "hello" || "good morning":
+          sendMessage(senderId, {text: "Hey there"});
+        case "change" || "schedule" || "date":
+          sendMessage(senderId, {text: "You want to change time"});
+          break;
+
+        default:
+          sendMessage(senderId, {text: "Sorry, did not get that, can you try again"});
+      }
 
       }
     } else if (message.attachments) {
@@ -140,4 +149,12 @@ function sendMessage(recipientId, message) {
       console.log("Error sending message: " + response.error);
     }
   });
+}
+
+function updateDatabase() {
+  //is this a real time
+
+  //does id exist, then change time
+
+  //add id and time to db
 }
