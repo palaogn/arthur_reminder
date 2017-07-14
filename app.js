@@ -118,7 +118,7 @@ function processMessage(event) {
       var formattedMsg = message.text.toLowerCase().trim();
 
       switch (formattedMsg) {
-        case "hi":
+        case String(formattedMsg.match(/.* hi .*/)):
         case "hello":
         case "good morning":
           sendMessage(senderId, {text: "Hey there"});
