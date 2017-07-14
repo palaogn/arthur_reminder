@@ -118,9 +118,14 @@ function processMessage(event) {
       var formattedMsg = message.text.toLowerCase().trim();
 
       switch (formattedMsg) {
-        case "hi" || "hello" || "good morning":
+        case "hi":
+        case "hello":
+        case "good morning":
           sendMessage(senderId, {text: "Hey there"});
-        case "change" || "schedule" || "date":
+          break;
+        case "change":
+        case "schedule":
+        case "date":
           sendMessage(senderId, {text: "You want to change time"});
           break;
 
