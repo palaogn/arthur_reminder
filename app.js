@@ -98,7 +98,7 @@ function processPostback(event) {
     });
   }
   else if (payload === "ChangeTimeYES") {
-	  sendTimeOptions();
+	  sendTimeOptions(senderId);
       updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
@@ -109,7 +109,7 @@ function processPostback(event) {
   }
 }
 
-function sendTimeOptions(){
+function sendTimeOptions(senderId){
 	
 	message = {
 		"attachment":{
