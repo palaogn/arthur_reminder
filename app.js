@@ -111,7 +111,7 @@ function processPostback(event) {
 
 function sendTimeOptions(senderId){
 	
-	message = {
+	var message = {
 		"attachment":{
 		  "type":"template",
 			"payload":{
