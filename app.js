@@ -99,38 +99,28 @@ function processPostback(event) {
   }
   else if (payload == "ChangeTimeYES") {
 	  sendMessage(senderId, {text: "your response was yes"});
-	  var time = {
-		"attachment":{
-		  "type":"template",
-			"payload":{
-				"template_type":"button",
-				"text":"When do you want to get reminders?",
-				"buttons":[
-					{
-						"type":"postback",
-						"title":"One",
-						"payload":"TimeOne"
-					},
-					{
-						"type":"postback",
-						"title":"Two",
-						"payload":"TimeTwo"
-					},
-					{
-						"type":"postback",
-						"title":"Three",
-						"payload":"TimeThree"
-					},
-					{
-						"type":"postback",
-						"title":"Four",
-						"payload":"TimeFour"
-					}
-				]
-			}
-		}
-	}
-	sendMessage(senderId, {text: time});	
+	   message = {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"button",
+            "text":"Do you want to get reminders?",
+            "buttons":[
+              {
+                "type":"postback",
+                "title":"Yes",
+                "payload":"ChangeTimeYES"
+              },
+              {
+                "type":"postback",
+                "title":"No",
+                "payload":"ChangeTimeNO"
+              }
+            ]
+          }
+        }
+      }
+      sendMessage(senderId, message);	
     //updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
