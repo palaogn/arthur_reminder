@@ -99,7 +99,7 @@ function processPostback(event) {
   }
   else if (payload == "ChangeTimeYES") {
 	  sendMessage(senderId, {text: "your response was yes"});
-	  var message = {
+	  var time = {
 		"attachment":{
 		  "type":"template",
 			"payload":{
@@ -108,35 +108,35 @@ function processPostback(event) {
 				"buttons":[
 					{
 						"type":"postback",
-						"title":"1:00",
-						"payload":"Time01"
+						"title":"One",
+						"payload":"TimeOne"
 					},
 					{
 						"type":"postback",
-						"title":"2:00",
-						"payload":"Time02"
+						"title":"Two",
+						"payload":"TimeTwo"
 					},
 					{
 						"type":"postback",
-						"title":"3:00",
-						"payload":"Time03"
+						"title":"Three",
+						"payload":"TimeThree"
 					},
 					{
 						"type":"postback",
-						"title":"4:00",
-						"payload":"Time04"
+						"title":"Four",
+						"payload":"TimeFour"
 					}
 				]
 			}
 		}
 	}
-	sendMessage(senderId, {text: message});	
+	sendMessage(senderId, {text: time});	
     //updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
     sendMessage(senderId, {text: "Alright, then we will not change the time"});
   }
-  else if(payload == "Time01" || payload == "Time02" || payload == "Time03" || payload == "Time04"){
+  else if(payload == "TimeOne" || payload == "TimeTwo" || payload == "TimeThree" || payload == "TimeFour"){
 	sendMessage(senderId, {text: "Alright, then we will send you reminder at that time"});
   }
 }
