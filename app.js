@@ -70,35 +70,12 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "My name is Arthur and I can send you a reminder every day.";
-      sendMessage(senderId, {text: message});
-
-      message = {
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"button",
-            "text":"Do you want to get reminders?",
-            "buttons":[
-              {
-                "type":"postback",
-                "title":"Yes",
-                "payload":"ChangeTimeYES"
-              },
-              {
-                "type":"postback",
-                "title":"No",
-                "payload":"ChangeTimeNO"
-              }
-            ]
-          }
-        }
-      }
-      sendMessage(senderId, message);
+      sendMessage(senderId, {text: greeting});
+      confirmChangeTime(senderId);
     });
   }
   else if (payload == "ChangeTimeYES") {
-	  
+
 	  message = {
 		"text":"Pick a time:",
 		"quick_replies":[
@@ -144,8 +121,8 @@ function processPostback(event) {
 		  }
 		]
 	}
-	
-	 /* 
+
+	 /*
 	   message = {
         "attachment":{
           "type":"template",
@@ -172,7 +149,7 @@ function processPostback(event) {
           }
         }
       } */
-      sendMessage(senderId, message);	
+      sendMessage(senderId, message);
     //updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
@@ -205,7 +182,7 @@ function processMessage(event) {
         case String(formattedMsg.match(/.*change.*/)):
         case String(formattedMsg.match(/.*schedule.*/)):
         case String(formattedMsg.match(/.*date.*/)):
-          sendMessage(senderId, {text: "You want to change time"});
+          confirmChangeTime(senderId);
           break;
 
         default:
@@ -240,4 +217,32 @@ function updateDatabase() {
   //does id exist, then change time
 
   //add id and time to db
+}
+
+function confirmChangeTime(senderId) {
+  var message = "My name is Arthur and I can send you a reminder every day.";
+  sendMessage(senderId, {text: message});
+
+  message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Do you want to get reminders?",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Yes",
+            "payload":"ChangeTimeYES"
+          },
+          {
+            "type":"postback",
+            "title":"No",
+            "payload":"ChangeTimeNO"
+          }
+        ]
+      }
+    }
+  }
+  sendMessage(senderId, message);
 }
