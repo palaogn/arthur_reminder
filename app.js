@@ -47,6 +47,7 @@ app.post("/webhook", function (req, res) {
         }
       });
     });
+    
 
     res.sendStatus(200);
   }
@@ -176,17 +177,17 @@ function updateDatabase(senderId, formattedMsg) {
   //is this a real time
   //does id exist, then change time
   //add id and time to db
-  
+
   var query = {user_id: senderId};
-  
+
   var schedule = {
 	user_id: senderId,
-    time: formattedMsg,  
+    time: formattedMsg,
   };
-  
+
   // Creates a new document if no documents is found
   var options = {upsert: true};
-  
+
   Schedule.findOneAndUpdate(query, schedule, options, function(err, sch){
 	  if (err) {
         console.log("Database error: " + err);
