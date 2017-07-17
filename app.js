@@ -68,7 +68,7 @@ function processPostback(event) {
       } else {
         var bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
-        greeting = "Hi " + name + ". ";
+        greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
       }
       sendMessage(senderId, {text: greeting});
       confirmChangeTime(senderId);
@@ -177,15 +177,12 @@ function updateDatabase() {
 }
 
 function confirmChangeTime(senderId) {
-  var message = "My name is Arthur and I can send you a reminder every day.";
-  sendMessage(senderId, {text: message});
-
-  message = {
+  var message = {
     "attachment":{
       "type":"template",
       "payload":{
         "template_type":"button",
-        "text":"Do you want to get reminders?",
+        "text":"Do you want schedule the time?",
         "buttons":[
           {
             "type":"postback",
