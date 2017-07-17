@@ -1,6 +1,11 @@
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+
+var db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/scheduledb");
+var Schedule = require("./model/schedule.js");
+
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
@@ -103,7 +108,6 @@ function processPostback(event) {
 	}
 
     sendMessage(senderId, message);
-    //updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
     sendMessage(senderId, {text: "Alright, then we will not change the time"});
@@ -139,7 +143,7 @@ function processMessage(event) {
 		case "6:00":
 		case "9:00":
 		case "12:00":
-			sendMessage(senderId, {text: "Alright, then we will send you reminder at that time"});
+			updateDatabase(senderId, formattedMsg);
 		break;
 
         default:
@@ -168,12 +172,28 @@ function sendMessage(recipientId, message) {
   });
 }
 
-function updateDatabase() {
+function updateDatabase(senderId, formattedMsg) {
   //is this a real time
-
   //does id exist, then change time
-
   //add id and time to db
+  
+  var query = {user_id: senderId};
+  
+  var schedule = {
+	user_id: senderId,
+    time: formattedMsg,  
+  };
+  
+  // Creates a new document if no documents is found
+  var options = {upsert: true};
+  
+  Schedule.findOneAndUpdate(query, schedule, options, function(err, sch){
+	  if (err) {
+        console.log("Database error: " + err);
+      } else {
+		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + " time."});
+	  }
+  });
 }
 
 function confirmChangeTime(senderId) {
