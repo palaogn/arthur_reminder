@@ -80,83 +80,33 @@ function processPostback(event) {
 		"text":"Pick a time:",
 		"quick_replies":[
 		  {
-			"content_type":"postback",
-			"title":"One",
-			"payload":"TimeOne"
-		  },
-		  {
-			"content_type":"postback",
-			"title":"Two",
-			"payload":"TimeTwo"
-		  },
-		  {
-			"content_type":"postback",
-			"title":"Three",
+			"content_type":"text",
+			"title":"3:00",
 			"payload":"TimeThree"
 		  },
 		  {
-			"content_type":"postback",
-			"title":"Four",
-			"payload":"TimeFour"
+			"content_type":"text",
+			"title":"6:00",
+			"payload":"TimeSix"
 		  },
 		  {
-			"content_type":"postback",
-			"title":"Five",
-			"payload":"TimeFive"
+			"content_type":"text",
+			"title":"9:00",
+			"payload":"TimeNine"
 		  },
 		  {
-			"content_type":"postback",
-			"title":"Six",
-			"payload":"Timesix"
-		  },
-		  {
-			"content_type":"postback",
-			"title":"Seven",
-			"payload":"TimeSeven"
-		  },
-		  {
-			"content_type":"postback",
-			"title":"Eight",
-			"payload":"TimeEight"
+			"content_type":"text",
+			"title":"12:00",
+			"payload":"TimeTwelve"
 		  }
 		]
 	}
 
-	 /*
-	   message = {
-        "attachment":{
-          "type":"template",
-          "payload":{
-            "template_type":"button",
-            "text":"When do you want to get reminders?",
-            "buttons":[
-              {
-                "type":"postback",
-                "title":"One",
-                "payload":"TimeOne"
-              },
-              {
-                "type":"postback",
-                "title":"Two",
-                "payload":"TimeTwo"
-              },
-              {
-                "type":"postback",
-                "title":"Three",
-                "payload":"TimeThree"
-              }
-            ]
-          }
-        }
-      } */
-      sendMessage(senderId, message);
+    sendMessage(senderId, message);
     //updateDatabase();
   }
   else if (payload == "ChangeTimeNO"){
     sendMessage(senderId, {text: "Alright, then we will not change the time"});
-  }
-  else if(payload == "TimeOne" || payload == "TimeTwo" || payload == "TimeThree"){
-	sendMessage(senderId, {text: "Alright, then we will send you reminder at that time"});
   }
 }
 
@@ -185,6 +135,13 @@ function processMessage(event) {
           confirmChangeTime(senderId);
           break;
 
+		case "TimeThree":
+		case "TimeSix":
+		case "TimeNine":
+		case "TimeTwelve":
+			sendMessage(senderId, {text: "Alright, then we will send you reminder at that time"});
+		break;
+		  
         default:
           sendMessage(senderId, {text: "Sorry, did not get that, can you try again"});
       }
