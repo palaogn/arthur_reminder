@@ -135,13 +135,13 @@ function processMessage(event) {
           confirmChangeTime(senderId);
           break;
 
-		case "TimeThree":
-		case "TimeSix":
-		case "TimeNine":
-		case "TimeTwelve":
+		case "3:00":
+		case "6:00":
+		case "9:00":
+		case "12:00":
 			sendMessage(senderId, {text: "Alright, then we will send you reminder at that time"});
 		break;
-		  
+
         default:
           sendMessage(senderId, {text: "Sorry, did not get that, can you try again"});
       }
