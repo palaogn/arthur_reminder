@@ -193,7 +193,7 @@ function updateDatabase(senderId, formattedMsg) {
         console.log("Database error: " + err);
       } else {
 		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + " time."});
-		var j = schedule.scheduleJob('48 * * * *', function(){
+		var j = schedule.scheduleJob('*/5 * * * *', function(){
 			sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
 			console.log('The answer to life, the universe, and everything!');
 		});
