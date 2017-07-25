@@ -178,6 +178,11 @@ function updateDatabase(senderId, formattedMsg) {
   //does id exist, then change time
   //add id and time to db
 
+	var j = schedule.scheduleJob('*/5 * * * *', function(){
+		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
+		console.log('The answer to life, the universe, and everything!');
+	});
+  
   var query = {user_id: senderId};
 
   var schedule = {
@@ -193,10 +198,6 @@ function updateDatabase(senderId, formattedMsg) {
         console.log("Database error: " + err);
       } else {
 		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + " time."});
-		var j = schedule.scheduleJob('*/5 * * * *', function(){
-			sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
-			console.log('The answer to life, the universe, and everything!');
-		});
 	  }
   });
 }
