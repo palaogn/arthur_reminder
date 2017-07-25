@@ -178,11 +178,14 @@ function updateDatabase(senderId, formattedMsg) {
   //does id exist, then change time
   //add id and time to db
 
-	var j = cron.scheduleJob('*/5 * * * *', function(){
+  var time = formattedMsg.split(":");
+  var date = time[1] + ' ' + time[0] + ' * * *'
+  sendMessage(senderId, {text: "You scheduled this time: " + date});
+	var j = cron.scheduleJob(date, function(){
 		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
 		console.log('The answer to life, the universe, and everything!');
 	});
-  
+
   var query = {user_id: senderId};
 
   var schedule = {
