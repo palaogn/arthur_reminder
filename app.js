@@ -221,9 +221,9 @@ function triggerAllJobsFromDb() {
   //is this a real time
   //does id exist, then change time
   //add id and time to db
-  
+
   var array = [];
- 
+
   Schedule.find({}, function(err, doc){
 	  if (err) {
         console.log("Database error: " + err);
@@ -231,8 +231,9 @@ function triggerAllJobsFromDb() {
 		array = doc;
 	  }
   });
-  
+
   for (var i = 0; i < array.length; i++) {
+    console.log(array[i].user_id);
 	  triggerMessagejob(array[i].user_id, array[i].time);
   }
 }
