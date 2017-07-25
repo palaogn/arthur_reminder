@@ -2,7 +2,7 @@ var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var schedule = require('node-schedule');
+var cron = require('node-schedule');
 
 var db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/scheduledb");
 var Schedule = require("./model/schedule.js");
@@ -178,7 +178,7 @@ function updateDatabase(senderId, formattedMsg) {
   //does id exist, then change time
   //add id and time to db
 
-	var j = schedule.scheduleJob('*/5 * * * *', function(){
+	var j = cron.scheduleJob('*/5 * * * *', function(){
 		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
 		console.log('The answer to life, the universe, and everything!');
 	});
