@@ -11,7 +11,9 @@ var Schedule = require("./model/schedule.js");
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.listen((process.env.PORT || 5000));
+app.listen((process.env.PORT || 5000), function () {
+  console.log('Arthur is listening on port 5000');
+});
 
 
 // Server index page
@@ -175,16 +177,16 @@ function sendMessage(recipientId, message) {
 }
 
 function triggerMessagejob(senderId, formattedMsg) {
-	
+
 	var time = formattedMsg.split(":");
 	var date = time[1] + ' ' + time[0] + ' * * *'
-	
+
 	sendMessage(senderId, {text: "You scheduled this time: " + date});
-	
+
 	cron.cancelJob(senderId);
-	
+
 	//var j = cron.scheduleJob(senderId, date, function(){
-	var j = cron.scheduleJob(senderId, '*/5 * * * *', function(){	
+	var j = cron.scheduleJob(senderId, '*/5 * * * *', function(){
 		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
 		console.log('The answer to life, the universe, and everything!');
 	});
