@@ -145,6 +145,7 @@ function processMessage(event) {
 		case "9:00":
 		case "12:00":
 			updateDatabase(senderId, formattedMsg);
+			triggerMessagejob(senderId, formattedMsg);
 		break;
 
         default:
@@ -173,18 +174,25 @@ function sendMessage(recipientId, message) {
   });
 }
 
+function triggerMessagejob(senderId, formattedMsg) {
+	
+	var time = formattedMsg.split(":");
+	var date = time[1] + ' ' + time[0] + ' * * *'
+	
+	sendMessage(senderId, {text: "You scheduled this time: " + date});
+	
+	cron.cancelJob(senderId);
+	
+	var j = cron.scheduleJob(senderId, date, function(){
+		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
+		console.log('The answer to life, the universe, and everything!');
+	});
+}
+
 function updateDatabase(senderId, formattedMsg) {
   //is this a real time
   //does id exist, then change time
   //add id and time to db
-
-  var time = formattedMsg.split(":");
-  var date = time[1] + ' ' + time[0] + ' * * *'
-  sendMessage(senderId, {text: "You scheduled this time: " + date});
-	var j = cron.scheduleJob(date, function(){
-		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
-		console.log('The answer to life, the universe, and everything!');
-	});
 
   var query = {user_id: senderId};
 
