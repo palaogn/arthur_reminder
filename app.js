@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000), function () {
   console.log('Arthur is listening on port 5000');
+  triggerAllJobsFromDb();
 });
 
 
@@ -214,6 +215,26 @@ function updateDatabase(senderId, formattedMsg) {
 		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + " time."});
 	  }
   });
+}
+
+function triggerAllJobsFromDb() {
+  //is this a real time
+  //does id exist, then change time
+  //add id and time to db
+  
+  var array = [];
+ 
+  Schedule.find({}, function(err, doc){
+	  if (err) {
+        console.log("Database error: " + err);
+      } else {
+		array = doc;
+	  }
+  });
+  
+  for (var i = 0; i < array.length; i++) {
+	  triggerMessagejob(array[i].user_id, array[i].time);
+  }
 }
 
 function confirmChangeTime(senderId) {
