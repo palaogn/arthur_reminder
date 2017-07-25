@@ -13,9 +13,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000), function () {
   console.log('Arthur is listening on port 5000');
-  triggerAllJobsFromDb();
 });
 
+triggerAllJobsFromDb();
 
 // Server index page
 app.get("/", function (req, res) {
