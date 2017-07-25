@@ -11,11 +11,7 @@ var Schedule = require("./model/schedule.js");
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.listen((process.env.PORT || 5000), function () {
-  console.log('Arthur is listening on port 5000');
-});
-
-triggerAllJobsFromDb();
+app.listen((process.env.PORT || 5000), triggerAllJobsFromDb());
 
 // Server index page
 app.get("/", function (req, res) {
