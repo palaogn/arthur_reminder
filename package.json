@@ -21,6 +21,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongoose": "^4.11.1",
+    "node-schedule": "^1.2.3",
     "request": "^2.81.0"
   }
 }

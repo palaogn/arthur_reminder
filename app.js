@@ -2,6 +2,7 @@ var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var schedule = require('node-schedule');
 
 var db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/scheduledb");
 var Schedule = require("./model/schedule.js");
@@ -192,6 +193,10 @@ function updateDatabase(senderId, formattedMsg) {
         console.log("Database error: " + err);
       } else {
 		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + " time."});
+		var j = schedule.scheduleJob('48 * * * *', function(){
+			sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
+			console.log('The answer to life, the universe, and everything!');
+		});
 	  }
   });
 }
