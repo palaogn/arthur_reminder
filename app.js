@@ -231,17 +231,16 @@ function triggerAllJobsFromDb() {
         console.log("Database error: " + err);
       } else {
 		array = doc;
-		console.log(array);
+		console.log(array.length);
+		for (var i = 0; i < array.length; i++) { 
+			console.log(array[i].user_id);
+			console.log(array[i].time);
+			triggerMessagejob(array[i].user_id, array[i].time);
+		}
 	  }
   });
 
-  console.log("array.length " + array.length);
-  
-  for (var i = 0; i < array.length; i++) { 
-      console.log(array[i].user_id);
-	  console.log(array[i].time);
-	  triggerMessagejob(array[i].user_id, array[i].time);
-  }
+
 }
 
 function confirmChangeTime(senderId) {
