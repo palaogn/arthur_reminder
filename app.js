@@ -14,11 +14,7 @@ app.use(bodyParser.json());
 
 app.listen((process.env.PORT || 5000), function () {
   console.log('Arthur is listening on port 5000');
-});
-
-app.on('listening', function () {
-	console.log("app.on event called...");
-    triggerAllJobsFromDb();
+  triggerAllJobsFromDb();
 });
 
 // Server index page
