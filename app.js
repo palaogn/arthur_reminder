@@ -224,8 +224,6 @@ function triggerAllJobsFromDb() {
   //does id exist, then change time
   //add id and time to db
 
-  console.log("triggerAllJobsFromDb function call...");
-  
   var array = [];
 
   Schedule.find({}, function(err, doc){
@@ -233,14 +231,15 @@ function triggerAllJobsFromDb() {
         console.log("Database error: " + err);
       } else {
 		array = doc;
-		console.log(doc);
+		console.log(array);
 	  }
   });
-  
-  console.log("triggerAllJobsFromDb function call...");
 
-  for (var i = 0; i < array.length; i++) {
-    console.log(array[i].user_id);
+  console.log("array.length " + array.length);
+  
+  for (var i = 0; i < array.length; i++) { 
+      console.log(array[i].user_id);
+	  console.log(array[i].time);
 	  triggerMessagejob(array[i].user_id, array[i].time);
   }
 }
