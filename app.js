@@ -192,9 +192,6 @@ function triggerMessagejob(senderId, formattedMsg) {
 }
 
 function updateDatabase(senderId, formattedMsg) {
-  //is this a real time
-  //does id exist, then change time
-  //add id and time to db
 
   var query = {user_id: senderId};
 
@@ -216,9 +213,6 @@ function updateDatabase(senderId, formattedMsg) {
 }
 
 function triggerAllJobsFromDb() {
-  //is this a real time
-  //does id exist, then change time
-  //add id and time to db
 
   var array = [];
 
@@ -230,10 +224,9 @@ function triggerAllJobsFromDb() {
 		for (var i = 0; i < array.length; i++) { 
 			triggerMessagejob(array[i].user_id, array[i].time);
 		}
+		console.log("Triggered " + array.length + " jobs from the database...");
 	  }
   });
-
-
 }
 
 function confirmChangeTime(senderId) {
