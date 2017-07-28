@@ -233,8 +233,11 @@ function triggerAllJobsFromDb() {
         console.log("Database error: " + err);
       } else {
 		array = doc;
+		console.log(doc);
 	  }
   });
+  
+  console.log("triggerAllJobsFromDb function call...");
 
   for (var i = 0; i < array.length; i++) {
     console.log(array[i].user_id);
