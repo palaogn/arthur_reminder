@@ -117,6 +117,7 @@ function processPostback(event) {
     sendMessage(senderId, {text: "Alright, then we will not change the time. If you are in trouble try writing SOS"});
   }
   else if (payload == "DeleteTimeYes"){
+    console.log("You choose yes to delete reminder");
     deleteDbReminder(senderId);
   }
   else if (payload == "DeleteTimeNo"){
@@ -299,12 +300,12 @@ function confirmDeleteReminder(senderId) {
           {
             "type":"postback",
             "title":"Yes",
-            "payload":"DeleteTimeYES"
+            "payload":"DeleteTimeYes"
           },
           {
             "type":"postback",
             "title":"No",
-            "payload":"DeleteTimeNO"
+            "payload":"DeleteTimeNo"
           }
         ]
       }
