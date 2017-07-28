@@ -179,12 +179,8 @@ function sendMessage(recipientId, message) {
 
 function triggerMessagejob(senderId, formattedMsg) {
 
-	console.log("triggerMessagejob function call...");
-
 	var time = formattedMsg.split(":");
 	var date = time[1] + ' ' + time[0] + ' * * *'
-
-	sendMessage(senderId, {text: "You scheduled this time: " + date});
 
 	cron.cancelJob(senderId);
 
@@ -214,7 +210,7 @@ function updateDatabase(senderId, formattedMsg) {
 	  if (err) {
         console.log("Database error: " + err);
       } else {
-		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + " time."});
+		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + "."});
 	  }
   });
 }
@@ -231,10 +227,7 @@ function triggerAllJobsFromDb() {
         console.log("Database error: " + err);
       } else {
 		array = doc;
-		console.log(array.length);
 		for (var i = 0; i < array.length; i++) { 
-			console.log(array[i].user_id);
-			console.log(array[i].time);
 			triggerMessagejob(array[i].user_id, array[i].time);
 		}
 	  }
