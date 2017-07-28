@@ -234,7 +234,7 @@ function updateDatabase(senderId, formattedMsg) {
 
 function deleteDbReminder(senderId) {
 var query = {user_id: senderId};
-
+console.log("You just called the funciton deleteDbReminder");
   Schedule.remove(query, function(err) {
     if(err) {
       console.log("Database error: " + err);
