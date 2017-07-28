@@ -12,12 +12,13 @@ var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.on('listening', function () {
-    triggerMessagejob();
-});
-
 app.listen((process.env.PORT || 5000), function () {
   console.log('Arthur is listening on port 5000');
+});
+
+app.on('listening', function () {
+	console.log("app.on event called...");
+    triggerAllJobsFromDb();
 });
 
 // Server index page
@@ -182,6 +183,8 @@ function sendMessage(recipientId, message) {
 
 function triggerMessagejob(senderId, formattedMsg) {
 
+	console.log("triggerMessagejob function call...");
+
 	var time = formattedMsg.split(":");
 	var date = time[1] + ' ' + time[0] + ' * * *'
 
@@ -225,6 +228,8 @@ function triggerAllJobsFromDb() {
   //does id exist, then change time
   //add id and time to db
 
+  console.log("triggerAllJobsFromDb function call...");
+  
   var array = [];
 
   Schedule.find({}, function(err, doc){
