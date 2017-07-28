@@ -11,6 +11,11 @@ var Schedule = require("./model/schedule.js");
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+app.on('listening', function () {
+    triggerMessagejob();
+});
+
 app.listen((process.env.PORT || 5000), function () {
   console.log('Arthur is listening on port 5000');
 });
@@ -184,8 +189,8 @@ function triggerMessagejob(senderId, formattedMsg) {
 
 	cron.cancelJob(senderId);
 
-	//var j = cron.scheduleJob(senderId, '*/5 * * * *', function(){
-	var j = cron.scheduleJob(senderId, date, function(){
+	var j = cron.scheduleJob(senderId, '*/5 * * * *', function(){
+	//var j = cron.scheduleJob(senderId, date, function(){
 		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
 		console.log('The answer to life, the universe, and everything!');
 	});
