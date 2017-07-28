@@ -114,7 +114,13 @@ function processPostback(event) {
     sendMessage(senderId, message);
   }
   else if (payload == "ChangeTimeNO"){
-    sendMessage(senderId, {text: "Alright, then we will not change the time"});
+    sendMessage(senderId, {text: "Alright, then we will not change the time. If you are in trouble try writing SOS"});
+  }
+  else if (payload == "DeleteTimeYes"){
+    deleteDbReminder(senderId);
+  }
+  else if (payload == "DeleteTimeNo"){
+    sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
 }
 
@@ -139,9 +145,23 @@ function processMessage(event) {
           break;
         case String(formattedMsg.match(/.*change.*/)):
         case String(formattedMsg.match(/.*schedule.*/)):
+        case String(formattedMsg.match(/.*reschedule.*/)):
         case String(formattedMsg.match(/.*date.*/)):
           confirmChangeTime(senderId);
           break;
+        case String(formattedMsg.match(/.*delete.*/)):
+        case String(formattedMsg.match(/.*stop.*/)):
+        case String(formattedMsg.match(/.*revert.*/)):
+        case String(formattedMsg.match(/.*quit.*/)):
+        case String(formattedMsg.match(/.*exit.*/)):
+          confirmDeleteReminder(senderId);
+          break;
+        case String(formattedMsg.match(/.*help.*/)):
+        case String(formattedMsg.match(/.*sos.*/)):
+          sendMessage(senderId, {text: "Hey there I see you are in trouble. Ask me to reschedule if you want to reschedule your reminders and to delete your reminder if you want to delete them."})
+          break;
+
+
 
 		case "3:00":
 		case "6:00":
@@ -212,6 +232,20 @@ function updateDatabase(senderId, formattedMsg) {
   });
 }
 
+function deleteDbReminder(senderId) {
+var query = {user_id: senderId};
+
+  Schedule.remove(query, function(err) {
+    if(err) {
+      console.log("Database error: " + err);
+    } else {
+      sendMessage(senderId, {text: "I will not send you reminders anymore. If you want to schedule a new reminder then just talk to me."})
+      sendMessage(senderId, {text: "I also have a good shoulder to cry on if you need someone to talk to!"})
+    }
+  });
+
+}
+
 function triggerAllJobsFromDb() {
 
   var array = [];
@@ -221,7 +255,7 @@ function triggerAllJobsFromDb() {
         console.log("Database error: " + err);
       } else {
 		array = doc;
-		for (var i = 0; i < array.length; i++) { 
+		for (var i = 0; i < array.length; i++) {
 			triggerMessagejob(array[i].user_id, array[i].time);
 		}
 		console.log("Triggered " + array.length + " jobs from the database...");
@@ -246,6 +280,31 @@ function confirmChangeTime(senderId) {
             "type":"postback",
             "title":"No",
             "payload":"ChangeTimeNO"
+          }
+        ]
+      }
+    }
+  }
+  sendMessage(senderId, message);
+}
+
+function confirmDeleteReminder(senderId) {
+  var message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Do you want me to stop sending you reminders?",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Yes",
+            "payload":"DeleteTimeYES"
+          },
+          {
+            "type":"postback",
+            "title":"No",
+            "payload":"DeleteTimeNO"
           }
         ]
       }
