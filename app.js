@@ -89,22 +89,22 @@ function processPostback(event) {
 		"text":"Pick a time:",
 		"quick_replies":[
 		  {
-			"content_type":"text",
+			"content_type":"number",
 			"title":"3:00",
 			"payload":"TimeThree"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"number",
 			"title":"6:00",
 			"payload":"TimeSix"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"number",
 			"title":"9:00",
 			"payload":"TimeNine"
 		  },
 		  {
-			"content_type":"text",
+			"content_type":"number",
 			"title":"12:00",
 			"payload":"TimeTwelve"
 		  }
