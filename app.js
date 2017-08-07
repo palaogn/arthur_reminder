@@ -159,18 +159,12 @@ function processMessage(event) {
           break;
         case String(formattedMsg.match(/.*help.*/)):
         case String(formattedMsg.match(/.*sos.*/)):
-          sendMessage(senderId, {text: "Hey there I see you are in trouble. Ask me to reschedule if you want to reschedule your reminders and to delete your reminder if you want to delete them."})
+          sendMessage(senderId, {text: "Hey there I see you are in trouble. Ask me to reschedule if you want to reschedule your reminders and to delete your reminder if you want to delete them."});
           break;
-
-
-
-		case "3:00":
-		case "6:00":
-		case "9:00":
-		case "12:00":
-			updateDatabase(senderId, formattedMsg);
-			triggerMessagejob(senderId, formattedMsg);
-		break;
+        case String(formattedMsg.match(/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)):
+			    updateDatabase(senderId, formattedMsg);
+			    triggerMessagejob(senderId, formattedMsg);
+		      break;
 
         default:
           sendMessage(senderId, {text: "Sorry, did not get that, can you try again"});
