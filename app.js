@@ -85,33 +85,34 @@ function processPostback(event) {
   }
   else if (payload == "ChangeTimeYES") {
 
-	  message = {
+	 /* message = {
 		"text":"Pick a time:",
 		"quick_replies":[
 		  {
-			"content_type":"number",
+			"content_type":"text",
 			"title":"3:00",
 			"payload":"TimeThree"
 		  },
 		  {
-			"content_type":"number",
+			"content_type":"text",
 			"title":"6:00",
 			"payload":"TimeSix"
 		  },
 		  {
-			"content_type":"number",
+			"content_type":"text",
 			"title":"9:00",
 			"payload":"TimeNine"
 		  },
 		  {
-			"content_type":"number",
+			"content_type":"text",
 			"title":"12:00",
 			"payload":"TimeTwelve"
 		  }
 		]
-	}
+	}*/
 
-    sendMessage(senderId, message);
+    sendMessage(senderId, {text: "Enter the time"});
+    sendMessage(senderId, {text: "psss please use the format HH:MM so I can understand you"});
   }
   else if (payload == "ChangeTimeNO"){
     sendMessage(senderId, {text: "Alright, then we will not change the time. If you are in trouble try writing SOS"});
