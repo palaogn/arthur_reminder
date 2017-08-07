@@ -67,7 +67,7 @@ function processPostback(event) {
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
         access_token: process.env.PAGE_ACCESS_TOKEN,
-        fields: "first_name" && "timezone"
+        fields: "first_name"
       },
       method: "GET"
     }, function(error, response, body) {
@@ -76,7 +76,6 @@ function processPostback(event) {
         console.log("Error getting user's name: " +  error);
       } else {
         var bodyObj = JSON.parse(body);
-        console.log("timezone: " + bodyObj.timezone);
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
       }
