@@ -77,7 +77,7 @@ function processPostback(event) {
       } else {
         var bodyObj = JSON.parse(body);
         console.log("timezone: " + bodyObj.timezone);
-        console.log("update time: " + bodyObj.update_time);
+        console.log("update time: " + bodyObj.updated_time);
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
       }
