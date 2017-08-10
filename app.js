@@ -99,12 +99,33 @@ function processPostback(event) {
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
   else if (payload == "ConfirmTimeYes") {
+	getTimeZone(senderId);
 	updateDatabase(senderId, scheduledTime);
 	triggerMessagejob(senderId, scheduledTime);
   }
   else if (payload == "ConfirmTimeNo"){
     sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
   }
+}
+
+function getTimeZone(senderId) {
+	request({
+      url: "https://graph.facebook.com/v2.6/" + senderId,
+      qs: {
+        access_token: process.env.PAGE_ACCESS_TOKEN,
+        fields: "timezone"
+      },
+      method: "GET"
+    }, function(error, response, body) {
+      var timezone = "";
+      if (error) {
+        console.log("Error getting user's timezone: " +  error);
+      } else {
+        var bodyObj = JSON.parse(body);
+        timezone = bodyObj.timezone;
+      }
+    });
+	console.log(timezone);
 }
 
 function processMessage(event) {
