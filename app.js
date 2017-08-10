@@ -165,7 +165,8 @@ function processMessage(event) {
           break;
         case "12:00":
         case "09:00":
-        case String(formattedMsg.match(/.*^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$.*/)):
+        ///.*^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$.*/
+        case String(formattedMsg.match(/.*([0-9][0-9]):[0-5][0-9].*/)):
 			    updateDatabase(senderId, formattedMsg);
 			    triggerMessagejob(senderId, formattedMsg);
 		      break;
