@@ -9,7 +9,6 @@ var Schedule = require("./model/schedule.js");
 
 var scheduledTime = null;
 
-
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -99,9 +98,9 @@ function processPostback(event) {
   else if (payload == "DeleteTimeNo"){
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
-  else if (payload == "ConfirmTimeYes") {
-	updateDatabase(senderId, scheduledTime);
-	triggerMessagejob(senderId, scheduledTime);
+  else if (payload == String(formattedMsg.match(/[0-9]:[0-5][0-9]|0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]/))) {
+	updateDatabase(senderId, payload);
+	triggerMessagejob(senderId, payload);
   }
   else if (payload == "ConfirmTimeNo"){
     sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
@@ -303,7 +302,7 @@ function confirmCorrectTime(senderId, formattedMsg) {
 			  {
 				"type":"postback",
 				"title":"Yes",
-				"payload":"ConfirmTimeYes"
+				"payload":formattedMsg
 			  },
 			  {
 				"type":"postback",
