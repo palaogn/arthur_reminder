@@ -125,7 +125,7 @@ function getTimeZone(senderId) {
         timezone = bodyObj.timezone;
       }
     });
-	console.log("User's timezone: " + timezone);
+	console.log("User's timezone: " + bodyObj);
 }
 
 function processMessage(event) {
