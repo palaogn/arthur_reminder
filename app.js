@@ -7,6 +7,8 @@ var cron = require('node-schedule');
 var db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/scheduledb");
 var Schedule = require("./model/schedule.js");
 
+var scheduledTime = null;
+
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
@@ -98,8 +100,8 @@ function processPostback(event) {
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
   else if (payload == "ConfirmTimeYes") {
-	updateDatabase(senderId, formattedMsg);
-	triggerMessagejob(senderId, formattedMsg);
+	updateDatabase(senderId, scheduledTime);
+	triggerMessagejob(senderId, scheduledTime);
   }
   else if (payload == "ConfirmTimeNo"){
     sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
@@ -144,8 +146,9 @@ function processMessage(event) {
           sendMessage(senderId, {text: "Hey there I see you are in trouble. Ask me to reschedule if you want to reschedule your reminders and to delete your reminder if you want to delete them."});
           break;
         case String(formattedMsg.match(/[0-9]:[0-5][0-9]|0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]/)):
-				confirmCorrectTime(senderId, formattedMsg);
-		      break;
+			scheduledTime = formattedMsg;
+			confirmCorrectTime(senderId, formattedMsg);
+			break;
 
         default:
           sendMessage(senderId, {text: "Sorry, did not get that, can you try again"});
