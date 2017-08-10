@@ -109,6 +109,7 @@ function processPostback(event) {
 }
 
 function getTimeZone(senderId) {
+	var timezone = "";
 	request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
@@ -117,7 +118,6 @@ function getTimeZone(senderId) {
       },
       method: "GET"
     }, function(error, response, body) {
-      var timezone = "";
       if (error) {
         console.log("Error getting user's timezone: " +  error);
       } else {
