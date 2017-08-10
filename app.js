@@ -98,7 +98,7 @@ function processPostback(event) {
   else if (payload == "DeleteTimeNo"){
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
-  else if (payload == String(formattedMsg.match(/[0-9]:[0-5][0-9]|0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]/))) {
+  else if (String(payload.match(/[0-9]:[0-5][0-9]|0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]/))) {
 	updateDatabase(senderId, payload);
 	triggerMessagejob(senderId, payload);
   }
