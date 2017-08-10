@@ -84,33 +84,6 @@ function processPostback(event) {
     });
   }
   else if (payload == "ChangeTimeYES") {
-
-	 /* message = {
-		"text":"Pick a time:",
-		"quick_replies":[
-		  {
-			"content_type":"text",
-			"title":"3:00",
-			"payload":"TimeThree"
-		  },
-		  {
-			"content_type":"text",
-			"title":"6:00",
-			"payload":"TimeSix"
-		  },
-		  {
-			"content_type":"text",
-			"title":"9:00",
-			"payload":"TimeNine"
-		  },
-		  {
-			"content_type":"text",
-			"title":"12:00",
-			"payload":"TimeTwelve"
-		  }
-		]
-	}*/
-
     sendMessage(senderId, {text: "Enter the time"});
     sendMessage(senderId, {text: "psss please use the format HH:MM so I can understand you"});
   }
@@ -166,7 +139,7 @@ function processMessage(event) {
         case "12:00":
         case "09:00":
         ///.*^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$.*/
-        case String(formattedMsg.match(/.*([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9].*/)):
+        case String(formattedMsg.match(/.*(1[0-9]|2[0-3]):[0-5][0-9].*/)):
           //check if you actually want to do this
 			    updateDatabase(senderId, formattedMsg);
 			    triggerMessagejob(senderId, formattedMsg);
