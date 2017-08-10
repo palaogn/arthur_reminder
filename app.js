@@ -83,11 +83,11 @@ function processPostback(event) {
       confirmChangeTime(senderId);
     });
   }
-  else if (payload == "ChangeTimeYES") {
+  else if (payload == "ChangeTimeYes") {
     sendMessage(senderId, {text: "Enter the time"});
     sendMessage(senderId, {text: "psss please use the format HH:MM so I can understand you"});
   }
-  else if (payload == "ChangeTimeNO"){
+  else if (payload == "ChangeTimeNo"){
     sendMessage(senderId, {text: "Alright, then we will not change the time. If you are in trouble try writing SOS"});
   }
   else if (payload == "DeleteTimeYes"){
@@ -96,6 +96,13 @@ function processPostback(event) {
   }
   else if (payload == "DeleteTimeNo"){
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
+  }
+  else if (payload == "ConfirmTimeYes") {
+	updateDatabase(senderId, formattedMsg);
+	triggerMessagejob(senderId, formattedMsg);
+  }
+  else if (payload == "ConfirmTimeNo"){
+    sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
   }
 }
 
@@ -136,13 +143,8 @@ function processMessage(event) {
         case String(formattedMsg.match(/.*sos.*/)):
           sendMessage(senderId, {text: "Hey there I see you are in trouble. Ask me to reschedule if you want to reschedule your reminders and to delete your reminder if you want to delete them."});
           break;
-        case "12:00":
-        case "09:00":
-        ///.*^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$.*/
         case String(formattedMsg.match(/[0-9]:[0-5][0-9]|0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]/)):
-          //check if you actually want to do this
-			    updateDatabase(senderId, formattedMsg);
-			    triggerMessagejob(senderId, formattedMsg);
+				confirmCorrectTime(senderId, formattedMsg);
 		      break;
 
         default:
@@ -248,12 +250,12 @@ function confirmChangeTime(senderId) {
           {
             "type":"postback",
             "title":"Yes",
-            "payload":"ChangeTimeYES"
+            "payload":"ChangeTimeYes"
           },
           {
             "type":"postback",
             "title":"No",
-            "payload":"ChangeTimeNO"
+            "payload":"ChangeTimeNo"
           }
         ]
       }
@@ -285,4 +287,29 @@ function confirmDeleteReminder(senderId) {
     }
   }
   sendMessage(senderId, message);
+}
+
+function confirmCorrectTime(senderId, formattedMsg) {
+	var message = {
+		"attachment":{
+		  "type":"template",
+		  "payload":{
+			"template_type":"button",
+			"text":"So, you want me to send you reminder at " + formattedMsg + "?",
+			"buttons":[
+			  {
+				"type":"postback",
+				"title":"Yes",
+				"payload":"ConfirmTimeYes"
+			  },
+			  {
+				"type":"postback",
+				"title":"No",
+				"payload":"ConfirmTimeNo"
+			  }
+			]
+		  }
+		}
+	}
+	sendMessage(senderId, message);
 }
