@@ -210,7 +210,7 @@ function sendMessage(recipientId, message) {
 function triggerMessagejob(senderId, formattedMsg) {
 	cron.cancelJob(senderId);
 
-	var j = cron.scheduleJob(senderId, date, function(){
+	var j = cron.scheduleJob(senderId, formattedMsg, function(){
 		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
 		console.log('The answer to life, the universe, and everything!');
 	});
