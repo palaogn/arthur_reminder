@@ -125,12 +125,13 @@ var timezone = function (senderId) {
         fields: "timezone"
       },
       method: "GET"
-    }, function(error, response, body) {
+    }, function(error, response, body, result) {
       if (error) {
         console.log("Error getting user's timezone: " +  error);
       } else {
         var bodyObj = JSON.parse(body);
-        timezone = bodyObj.timezone;
+        result = bodyObj.timezone;
+		timezone = result;
 		console.log("User's timezone: " + timezone);
       }
     });
