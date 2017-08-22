@@ -99,15 +99,21 @@ function processPostback(event) {
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
   else if (payload == "ConfirmTimeYes") {
-  var userTimezone = timezone(senderId);
-  console.log(userTimezone);
-	scheduledTime = scheduledTime - userTimezone;
-	updateDatabase(senderId, scheduledTime);
-	triggerMessagejob(senderId, scheduledTime);
+    var userTimezone = timezone(senderId);
+    console.log(userTimezone);
+    var serverScheduledTime = changeToServerTimezone(scheduledTime, userTimezone)
+  	updateDatabase(senderId, serverScheduledTime);
+  	triggerMessagejob(senderId, serverScheduledTime);
   }
   else if (payload == "ConfirmTimeNo"){
     sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
   }
+}
+
+function changeToServerTimezone(scheduledTime, userTimezone) {
+  var time = formattedMsg.split(":");
+  var date = (parseInt(time[1])-userTimezone) + ' ' + time[0] + ' * * *'
+  return date;
 }
 
 var timezone = function (senderId) {
@@ -200,10 +206,6 @@ function sendMessage(recipientId, message) {
 }
 
 function triggerMessagejob(senderId, formattedMsg) {
-
-	var time = formattedMsg.split(":");
-	var date = time[1] + ' ' + time[0] + ' * * *'
-
 	cron.cancelJob(senderId);
 
 	var j = cron.scheduleJob(senderId, date, function(){
