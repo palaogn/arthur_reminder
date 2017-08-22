@@ -100,7 +100,7 @@ function processPostback(event) {
   }
   else if (payload == "ConfirmTimeYes") {
   var userTimezone = getTimeZone(senderId);
-  console.log(timezone);
+  console.log(userTimezone);
 	scheduledTime = scheduledTime - userTimezone;
 	updateDatabase(senderId, scheduledTime);
 	triggerMessagejob(senderId, scheduledTime);
