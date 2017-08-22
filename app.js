@@ -111,7 +111,7 @@ function processPostback(event) {
 }
 
 var timezone = function (senderId) {
-
+	var timezone = 0;
 	request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
@@ -124,12 +124,11 @@ var timezone = function (senderId) {
         console.log("Error getting user's timezone: " +  error);
       } else {
         var bodyObj = JSON.parse(body);
-        var timezone = bodyObj.timezone;
-		    console.log("User's timezone: " + timezone);
-		    return timezone;
+        timezone = bodyObj.timezone;
+		console.log("User's timezone: " + timezone);
       }
     });
-
+	return timezone;
 }
 
 function processMessage(event) {
