@@ -113,7 +113,7 @@ function processPostback(event) {
 
 function changeToServerTimezone(scheduledTime, userTimezone) {
   var time = scheduledTime.split(":");
-  var date = (parseInt(time[1])-userTimezone) + ' ' + time[0] + ' * * *';
+  var date = time[1] + ' ' + (parseInt(time[0])-userTimezone) + ' * * *';
   return date;
 }
 
