@@ -110,6 +110,7 @@ function processPostback(event) {
   }
 }
 
+
 function changeToServerTimezone(scheduledTime, userTimezone) {
   var time = formattedMsg.split(":");
   var date = (parseInt(time[1])-userTimezone) + ' ' + time[0] + ' * * *'
