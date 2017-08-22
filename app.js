@@ -99,7 +99,7 @@ function processPostback(event) {
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
   else if (payload == "ConfirmTimeYes") {
-	getTimeZone(senderId);
+	scheduledTime = scheduledTime - getTimeZone(senderId);
 	updateDatabase(senderId, scheduledTime);
 	triggerMessagejob(senderId, scheduledTime);
   }
@@ -124,6 +124,7 @@ function getTimeZone(senderId) {
         var bodyObj = JSON.parse(body);
         var timezone = bodyObj.timezone;
 		console.log("User's timezone: " + timezone);
+		return timezone;
       }
     });
 	
