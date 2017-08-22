@@ -99,7 +99,7 @@ function processPostback(event) {
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
   else if (payload == "ConfirmTimeYes") {
-  var userTimezone = getTimeZone(senderId);
+  var userTimezone = userTimezone(senderId);
   console.log(userTimezone);
 	scheduledTime = scheduledTime - userTimezone;
 	updateDatabase(senderId, scheduledTime);
@@ -110,7 +110,7 @@ function processPostback(event) {
   }
 }
 
-function getTimeZone(senderId) {
+var userTimezone = function (senderId) {
 
 	request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
@@ -125,8 +125,8 @@ function getTimeZone(senderId) {
       } else {
         var bodyObj = JSON.parse(body);
         var timezone = bodyObj.timezone;
-		console.log("User's timezone: " + timezone);
-		return timezone;
+		    console.log("User's timezone: " + timezone);
+		    return timezone;
       }
     });
 
