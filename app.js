@@ -208,48 +208,28 @@ function sendMessage(recipientId, message) {
   });
 }
 
-function getQuote() {
+function sendQuote(senderId) {
 	
-	request("https://random-quote-generator.herokuapp.com/api/quotes/random", function (error, response, body) {
+	request("https://random-quote-generator.herokuapp.com/api/quotes/random", 
+	function (error, response, body) {
 		if (error) {
 			console.log("error:", error);
 		}
 		else {
 			var bodyObj = JSON.parse(body);
 			var quote = "\"" + bodyObj.quote + "\" by " + bodyObj.author;
+			sendMessage(senderId, {text: quote});
 			console.log("Quote: " + quote);
 		}
 	});
-	
-	
-	/*
-	request({
-		url: "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]",
-		method: "GET",
-	}, function(error, response, body) {
-		if (error) {
-			console.log("Error sending message: " + response.error);
-		}
-		else {
-			console.log(body);
-			console.log(response);
-			var bodyObj = JSON.parse(body);
-			var title = bodyObj.title;
-			var content = bodyObj.content;
-			console.log("Author: " + title);
-			console.log("Quote: " + content);
-		}
-	}); */
 }
 
 function triggerMessagejob(senderId, formattedMsg) {
 	cron.cancelJob(senderId);
-	
-	var quote = "The answer to life, the universe, and everything!";
-	quote = getQuote();
 
 	var j = cron.scheduleJob(senderId, formattedMsg, function(){
-		sendMessage(senderId, {text: quote});
+		sendQuote(senderId);
+		//sendMessage(senderId, {text: quote});
 	});
 }
 
