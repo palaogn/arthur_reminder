@@ -218,17 +218,17 @@ function sendQuote(senderId) {
 		else {
 			var bodyObj = JSON.parse(body);
 			var quote = "\"" + bodyObj.quote + "\" by " + bodyObj.author;
+			sendMessage(senderId, {text: quote});
 			console.log("Quote: " + quote);
 		}
 	});
 }
 
-function triggerMessagejob(senderId, formattedMsg) {
+function triggerMessagejob(senderId, formatedTime) {
 	cron.cancelJob(senderId);
 
-	var j = cron.scheduleJob(senderId, formattedMsg, function(){
+	var j = cron.scheduleJob(senderId, formatedTime, function(){
 		sendQuote(senderId);
-		//sendMessage(senderId, {text: quote});
 	});
 }
 
