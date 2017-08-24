@@ -211,16 +211,14 @@ function sendMessage(recipientId, message) {
 function getQuote() {
 	
 	request("https://random-quote-generator.herokuapp.com/api/quotes/random", function (error, response, body) {
-		console.log("error:", error);
-		console.log("statusCode:", response && response.statusCode);
-		console.log("body:", body);
-		console.log("Author: " + body.quote);
-		console.log("Quote: " + body.author);
-		var bodyObj = JSON.parse(body);
-		var quote = bodyObj.quote;
-		var author = bodyObj.author;
-		console.log("Author: " + bodyObj.quote);
-		console.log("Quote: " + bodyObj.author);
+		if (error) {
+			console.log("error:", error);
+		}
+		else {
+			var bodyObj = JSON.parse(body);
+			var quote = "\"" + bodyObj.quote + "\" by " + bodyObj.author;
+			console.log("Quote: " + quote);
+		}
 	});
 	
 	
