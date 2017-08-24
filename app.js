@@ -100,9 +100,6 @@ function processPostback(event) {
   }
   else if (payload == "ConfirmTimeYes") {
     scheduleTimeAccordingToTimezone(senderId);
-    //var serverScheduledTime = changeToServerTimezone(scheduledTime, userTimezone)
-  	//updateDatabase(senderId, serverScheduledTime);
-  //	triggerMessagejob(senderId, serverScheduledTime);
   }
   else if (payload == "ConfirmTimeNo"){
     sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
@@ -135,7 +132,7 @@ function scheduleTimeAccordingToTimezone(senderId) {
         result = bodyObj.timezone;
 		    var timezone = result;
 		    console.log("User's timezone: " + timezone);
-        //We have to change the saved time to server timezone
+        //We have to change the saved time to server timezone which is on timezone zero
         var serverScheduledTime = changeToServerTimezone(scheduledTime, timezone);
         updateDatabase(senderId, serverScheduledTime);
       	triggerMessagejob(senderId, serverScheduledTime);
@@ -216,7 +213,6 @@ function triggerMessagejob(senderId, formattedMsg) {
 
 	var j = cron.scheduleJob(senderId, formattedMsg, function(){
 		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
-		console.log('The answer to life, the universe, and everything!');
 	});
 }
 
@@ -236,7 +232,7 @@ function updateDatabase(senderId, formattedMsg) {
 	  if (err) {
         console.log("Database error: " + err);
       } else {
-		sendMessage(senderId, {text: "Alright, then we will send you reminder at " + formattedMsg + "."});
+		sendMessage(senderId, {text: "Alright, then I will send you reminder at that time."});
 	  }
   });
 }
