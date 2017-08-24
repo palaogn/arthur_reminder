@@ -208,7 +208,7 @@ function sendMessage(recipientId, message) {
   });
 }
 
-function getquote() {
+function getQuote() {
 	
 	request({
 		url: "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]",
