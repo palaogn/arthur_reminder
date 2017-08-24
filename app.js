@@ -218,6 +218,8 @@ function getQuote() {
 			console.log("Error sending message: " + response.error);
 		}
 		else {
+			console.log(body);
+			console.log(response);
 			var bodyObj = JSON.parse(body);
 			var title = bodyObj.title;
 			var content = bodyObj.content;
