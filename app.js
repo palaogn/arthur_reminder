@@ -214,13 +214,12 @@ function getQuote() {
 		console.log("error:", error);
 		console.log("statusCode:", response && response.statusCode);
 		console.log("body:", body);
-		var bodyObj = JSON.parse(body);
+		console.log(body[0]);
+		var bodyObj = JSON.parse(body[0]);
 		var title = bodyObj.title;
 		var content = bodyObj.content;
-		console.log("Author: " + title);
-		console.log("Quote: " + content);
-		console.log("bodyObj: " + bodyObj);
-		console.log(body["title"]);
+		console.log("Author: " + bodyObj.title);
+		console.log("Quote: " + bodyObj.content);
 	});
 	
 	
