@@ -214,8 +214,11 @@ function getQuote() {
 		console.log("error:", error);
 		console.log("statusCode:", response && response.statusCode);
 		console.log("body:", body);
-		console.log("Author: " + body.title);
-		console.log("Quote: " + body.content);
+		var bodyObj = JSON.parse(body);
+		var title = bodyObj.title;
+		var content = bodyObj.content;
+		console.log("Author: " + title);
+		console.log("Quote: " + content);
 	});
 	
 	
