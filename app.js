@@ -219,6 +219,8 @@ function getQuote() {
 		var content = bodyObj.content;
 		console.log("Author: " + title);
 		console.log("Quote: " + content);
+		console.log("bodyObj: " + bodyObj);
+		console.log(body["title"]);
 	});
 	
 	
