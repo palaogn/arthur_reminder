@@ -210,16 +210,17 @@ function sendMessage(recipientId, message) {
 
 function getQuote() {
 	
-	request("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]", function (error, response, body) {
+	request("https://random-quote-generator.herokuapp.com/api/quotes/random", function (error, response, body) {
 		console.log("error:", error);
 		console.log("statusCode:", response && response.statusCode);
 		console.log("body:", body);
-		console.log(body[0]);
+		console.log("Author: " + body.quote);
+		console.log("Quote: " + body.author);
 		var bodyObj = JSON.parse(body);
-		var title = bodyObj.title;
-		var content = bodyObj.content;
-		console.log("Author: " + bodyObj.title);
-		console.log("Quote: " + bodyObj.content);
+		var quote = bodyObj.quote;
+		var author = bodyObj.author;
+		console.log("Author: " + bodyObj.quote);
+		console.log("Quote: " + bodyObj.author);
 	});
 	
 	
