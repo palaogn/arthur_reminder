@@ -218,7 +218,6 @@ function sendQuote(senderId) {
 		else {
 			var bodyObj = JSON.parse(body);
 			var quote = "\"" + bodyObj.quote + "\" by " + bodyObj.author;
-			sendMessage(senderId, {text: quote});
 			console.log("Quote: " + quote);
 		}
 	});
