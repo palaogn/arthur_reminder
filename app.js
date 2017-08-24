@@ -208,11 +208,30 @@ function sendMessage(recipientId, message) {
   });
 }
 
+function getquote() {
+	
+	request({
+		url: "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]",
+		method: "GET",
+	}, function(error, response, body) {
+		if (error) {
+			console.log("Error sending message: " + response.error);
+		}
+		else {
+			console.log("Author: " + bodyObj.title);
+			console.log("Quote: " + bodyObj.content);
+		}
+	});
+}
+
 function triggerMessagejob(senderId, formattedMsg) {
 	cron.cancelJob(senderId);
+	
+	var quote = "The answer to life, the universe, and everything!";
+	quote = getQuote();
 
 	var j = cron.scheduleJob(senderId, formattedMsg, function(){
-		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
+		sendMessage(senderId, {text: quote});
 	});
 }
 
