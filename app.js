@@ -213,7 +213,7 @@ function getQuote() {
 	request("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]", function (error, response, body) {
 		console.log("error:", error);
 		console.log("statusCode:", response && response.statusCode);
-		//console.log("body:", body);
+		console.log("body:", body);
 	});
 	
 	
