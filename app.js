@@ -99,26 +99,27 @@ function processPostback(event) {
     sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
   }
   else if (payload == "ConfirmTimeYes") {
-    var userTimezone = timezone(senderId);
-    console.log(userTimezone);
-    var serverScheduledTime = changeToServerTimezone(scheduledTime, userTimezone)
-  	updateDatabase(senderId, serverScheduledTime);
-  	triggerMessagejob(senderId, serverScheduledTime);
+    scheduleTimeAccordingToTimezone(senderId);
+    //var serverScheduledTime = changeToServerTimezone(scheduledTime, userTimezone)
+  	//updateDatabase(senderId, serverScheduledTime);
+  //	triggerMessagejob(senderId, serverScheduledTime);
   }
   else if (payload == "ConfirmTimeNo"){
     sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
   }
 }
 
-
+//The scheduledTime is a string so we have to split it and then change the number.
+//Ther server is on timezone 0 so we subtract the timezone number to get the correct time for the server.
+//In the end we return it as a string on the righ tformat for node-schedule
 function changeToServerTimezone(scheduledTime, userTimezone) {
   var time = scheduledTime.split(":");
   var date = time[1] + ' ' + (parseInt(time[0])-userTimezone) + ' * * *';
   return date;
 }
 
-var timezone = function (senderId) {
-	//var timezone = 5;
+function scheduleTimeAccordingToTimezone(senderId) {
+  //First we get the user timezone
 	request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
@@ -134,7 +135,10 @@ var timezone = function (senderId) {
         result = bodyObj.timezone;
 		    var timezone = result;
 		    console.log("User's timezone: " + timezone);
-        return timezone;
+        //We have to change the saved time to server timezone
+        var serverScheduledTime = changeToServerTimezone(scheduledTime, timezone);
+        updateDatabase(senderId, serverScheduledTime);
+      	triggerMessagejob(senderId, serverScheduledTime);
       }
     });
 }
