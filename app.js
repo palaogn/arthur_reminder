@@ -134,10 +134,9 @@ var timezone = function (senderId) {
         result = bodyObj.timezone;
 		    timezone = result;
 		    console.log("User's timezone: " + timezone);
+        return timezone;
       }
     });
-  console.log(timezone);
-	return timezone;
 }
 
 function processMessage(event) {
