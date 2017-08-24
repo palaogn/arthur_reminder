@@ -218,8 +218,11 @@ function getQuote() {
 			console.log("Error sending message: " + response.error);
 		}
 		else {
-			console.log("Author: " + body.title);
-			console.log("Quote: " + body.content);
+			var bodyObj = JSON.parse(body);
+			var title = bodyObj.title;
+			var content = bodyObj.content;
+			console.log("Author: " + title);
+			console.log("Quote: " + content);
 		}
 	});
 }
