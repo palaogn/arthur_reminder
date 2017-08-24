@@ -215,7 +215,7 @@ function getQuote() {
 		console.log("statusCode:", response && response.statusCode);
 		console.log("body:", body);
 		console.log(body[0]);
-		var bodyObj = JSON.parse(body[0]);
+		var bodyObj = JSON.parse(body);
 		var title = bodyObj.title;
 		var content = bodyObj.content;
 		console.log("Author: " + bodyObj.title);
