@@ -118,7 +118,7 @@ function changeToServerTimezone(scheduledTime, userTimezone) {
 }
 
 var timezone = function (senderId) {
-	var timezone = 0;
+	var timezone = 5;
 	request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
@@ -132,10 +132,11 @@ var timezone = function (senderId) {
       } else {
         var bodyObj = JSON.parse(body);
         result = bodyObj.timezone;
-		timezone = result;
-		console.log("User's timezone: " + timezone);
+		    timezone = result;
+		    console.log("User's timezone: " + timezone);
       }
     });
+  console.log(timezone);
 	return timezone;
 }
 
