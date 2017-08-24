@@ -214,6 +214,8 @@ function getQuote() {
 		console.log("error:", error);
 		console.log("statusCode:", response && response.statusCode);
 		console.log("body:", body);
+		console.log("Author: " + body.title);
+		console.log("Quote: " + body.content);
 	});
 	
 	
