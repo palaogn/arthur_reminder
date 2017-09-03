@@ -209,11 +209,27 @@ function sendMessage(recipientId, message) {
   });
 }
 
-function triggerMessagejob(senderId, formattedMsg) {
+function sendQuote(senderId) {
+	
+	request("https://random-quote-generator.herokuapp.com/api/quotes/random", 
+	function (error, response, body) {
+		if (error) {
+			console.log("error:", error);
+		}
+		else {
+			var bodyObj = JSON.parse(body);
+			var quote = "\"" + bodyObj.quote + "\" by " + bodyObj.author;
+			sendMessage(senderId, {text: quote});
+			console.log("Quote: " + quote);
+		}
+	});
+}
+
+function triggerMessagejob(senderId, formatedTime) {
 	cron.cancelJob(senderId);
 
-	var j = cron.scheduleJob(senderId, formattedMsg, function(){
-		sendMessage(senderId, {text: "The answer to life, the universe, and everything!"});
+	var j = cron.scheduleJob(senderId, formatedTime, function(){
+		sendQuote(senderId);
 	});
 }
 
