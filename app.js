@@ -81,18 +81,19 @@ function processPostback(event) {
         greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
       }
       sendMessage(senderId, {text: greeting});
+      sendMessage(senderId, {text: "You only have to schedule the time you want to get the reminders and I will take care of sendind them to you every day!"});
+      sendMessage(senderId, {text: "If you are in trouble just type 'SOS'"});
       confirmChangeTime(senderId);
     });
   }
   else if (payload == "ChangeTimeYes") {
     sendMessage(senderId, {text: "Enter the time"});
-    sendMessage(senderId, {text: "psss please use the format HH:MM so I can understand you"});
+    sendMessage(senderId, {text: "psss please use the format ´12:15´ so I can understand you"});
   }
   else if (payload == "ChangeTimeNo"){
     sendMessage(senderId, {text: "Alright, then we will not change the time. If you are in trouble try writing SOS"});
   }
   else if (payload == "DeleteTimeYes"){
-    console.log("You choose yes to delete reminder");
     deleteDbReminder(senderId);
   }
   else if (payload == "DeleteTimeNo"){
@@ -131,7 +132,6 @@ function scheduleTimeAccordingToTimezone(senderId) {
         var bodyObj = JSON.parse(body);
         result = bodyObj.timezone;
 		    var timezone = result;
-		    console.log("User's timezone: " + timezone);
         //We have to change the saved time to server timezone which is on timezone zero
         var serverScheduledTime = changeToServerTimezone(scheduledTime, timezone);
         updateDatabase(senderId, serverScheduledTime);
@@ -145,14 +145,10 @@ function processMessage(event) {
     var message = event.message;
     var senderId = event.sender.id;
 
-    console.log("Received message from senderId: " + senderId);
-    console.log("Message is: " + JSON.stringify(message));
-
     // You may get a text or attachment but not both
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
 
-      console.log("The message sent: " + formattedMsg);
       //checks if these words are in the message and replies.
       switch (formattedMsg) {
         case String(formattedMsg.match(/.*hi.*/)):
@@ -175,7 +171,10 @@ function processMessage(event) {
           break;
         case String(formattedMsg.match(/.*help.*/)):
         case String(formattedMsg.match(/.*sos.*/)):
-          sendMessage(senderId, {text: "Hey there I see you are in trouble. Ask me to reschedule if you want to reschedule your reminders and to delete your reminder if you want to delete them."});
+          sendMessage(senderId, {text: "Hey there I see you are in trouble."});
+          sendMessage(senderId, {text: "Type ´schedule´ if you want to schedule reminders."});
+          sendMessage(senderId, {text: "Type ´change´ if you want to change your reminders."});
+          sendMessage(senderId, {text: "Type ´stop´ if you want me to stop sending you reminders."});
           break;
         case String(formattedMsg.match(/[0-9]:[0-5][0-9]|0[0-9]:[0-5][0-9]|1[0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]/)):
 			scheduledTime = formattedMsg;
@@ -184,9 +183,11 @@ function processMessage(event) {
 
         default:
           sendMessage(senderId, {text: "Sorry, did not get that, can you try again"});
+          sendMessage(senderId, {text: "If you are in trouble just write 'SOS'"});
       }
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
+      sendMessage(senderId, {text: "If you are in trouble just write 'SOS'"});
     }
   }
 }
