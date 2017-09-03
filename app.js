@@ -78,7 +78,7 @@ function processPostback(event) {
       } else {
         var bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
-        greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day 😎";
+        greeting = "Hi " + name + ". " + " 🌻 My name is Arthur and I can send you a reminder every day 😎";
       }
       sendMessage(senderId, {text: greeting});
       //Adding a delay to make Arthur look alive
@@ -255,7 +255,7 @@ var query = {user_id: senderId};
     if(err) {
       console.log("Database error: " + err);
     } else {
-      sendMessage(senderId, {text: "I will not send you reminders anymore 🙄 If you want to schedule a new reminder then just talk to me."})
+      sendMessage(senderId, {text: "I will not send you reminders anymore 🙄 🤧 If you want to schedule a new reminder then just talk to me."})
       sendMessage(senderId, {text: "I also have a good shoulder to cry on if you need someone to talk to! 😍"})
     }
   });
