@@ -81,8 +81,8 @@ function processPostback(event) {
         greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
       }
       sendMessage(senderId, {text: greeting});
-      setTimeout(function(){}, 100000);
-      confirmChangeTime(senderId);
+      //Adding a delay to make Arthur look alive
+      setTimeout(confirmChangeTime(senderId), 3000);
     });
   }
   else if (payload == "ChangeTimeYes") {
