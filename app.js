@@ -81,12 +81,12 @@ function processPostback(event) {
         greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
       }
       sendMessage(senderId, {text: greeting});
+      setTimeout(function(){}, 3000);
       confirmChangeTime(senderId);
     });
   }
   else if (payload == "ChangeTimeYes") {
-    sendMessage(senderId, {text: "Enter the time"});
-    sendMessage(senderId, {text: "psss please use the format ´12:15´ so I can understand you"});
+    sendMessage(senderId, {text: "Please enter the time, use the format ´12:15´ so I can understand you"});
   }
   else if (payload == "ChangeTimeNo"){
     sendMessage(senderId, {text: "Alright, then we will not change the time. If you are in trouble try writing SOS"});
