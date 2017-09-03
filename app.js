@@ -81,8 +81,6 @@ function processPostback(event) {
         greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
       }
       sendMessage(senderId, {text: greeting});
-      sendMessage(senderId, {text: "You only have to schedule the time you want to get the reminders and I will take care of sendind them to you every day!"});
-      sendMessage(senderId, {text: "If you are in trouble just type 'SOS'"});
       confirmChangeTime(senderId);
     });
   }
@@ -210,8 +208,7 @@ function sendMessage(recipientId, message) {
 }
 
 function sendQuote(senderId) {
-	
-	request("https://random-quote-generator.herokuapp.com/api/quotes/random", 
+	request("https://random-quote-generator.herokuapp.com/api/quotes/random",
 	function (error, response, body) {
 		if (error) {
 			console.log("error:", error);
@@ -220,7 +217,6 @@ function sendQuote(senderId) {
 			var bodyObj = JSON.parse(body);
 			var quote = "\"" + bodyObj.quote + "\" by " + bodyObj.author;
 			sendMessage(senderId, {text: quote});
-			console.log("Quote: " + quote);
 		}
 	});
 }
@@ -234,7 +230,6 @@ function triggerMessagejob(senderId, formatedTime) {
 }
 
 function updateDatabase(senderId, formattedMsg) {
-
   var query = {user_id: senderId};
 
   var schedule = {
@@ -249,14 +244,13 @@ function updateDatabase(senderId, formattedMsg) {
 	  if (err) {
         console.log("Database error: " + err);
       } else {
-		sendMessage(senderId, {text: "Alright, then I will send you reminder at that time."});
+		sendMessage(senderId, {text: "I will send you a reminder everyday at that time."});
 	  }
   });
 }
 
 function deleteDbReminder(senderId) {
 var query = {user_id: senderId};
-console.log("You just called the funciton deleteDbReminder");
   Schedule.remove(query, function(err) {
     if(err) {
       console.log("Database error: " + err);
@@ -269,7 +263,6 @@ console.log("You just called the funciton deleteDbReminder");
 }
 
 function triggerAllJobsFromDb() {
-
   var array = [];
 
   Schedule.find({}, function(err, doc){
