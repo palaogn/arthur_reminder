@@ -82,26 +82,26 @@ function processPostback(event) {
       }
       sendMessage(senderId, {text: greeting});
       //Adding a delay to make Arthur look alive
-      setTimeout(function(){confirmChangeTime(senderId)}, 3000);
+      setTimeout(function(){confirmChangeTime(senderId)}, 2000);
     });
   }
   else if (payload == "ChangeTimeYes") {
-    sendMessage(senderId, {text: "Please enter the time, use the format ´12:15´ so I can understand you"});
+    sendMessage(senderId, {text: "Please enter the time, use the format ´12:15´ so I can understand you 😃 "});
   }
   else if (payload == "ChangeTimeNo"){
-    sendMessage(senderId, {text: "Alright, then we will not change the time. If you are in trouble try writing SOS"});
+    sendMessage(senderId, {text: "Alright, then we will not change the time 😉 If you are in trouble 🤷 try writing SOS"});
   }
   else if (payload == "DeleteTimeYes"){
     deleteDbReminder(senderId);
   }
   else if (payload == "DeleteTimeNo"){
-    sendMessage(senderId, {text: "Alright, then we will not delete your reminders. If you are in trouble try writing SOS"});
+    sendMessage(senderId, {text: "Alright, then we will not delete your reminders 😉 If you are in trouble 🤷 try writing SOS"});
   }
   else if (payload == "ConfirmTimeYes") {
     scheduleTimeAccordingToTimezone(senderId);
   }
   else if (payload == "ConfirmTimeNo"){
-    sendMessage(senderId, {text: "Alright, my mistake. :) If you are in trouble try writing SOS"});
+    sendMessage(senderId, {text: "Alright, my mistake 😃 If you are in trouble try writing SOS 🤷 "});
   }
 }
 
@@ -169,7 +169,7 @@ function processMessage(event) {
           break;
         case String(formattedMsg.match(/.*help.*/)):
         case String(formattedMsg.match(/.*sos.*/)):
-          sendMessage(senderId, {text: "Hey there I see you are in trouble."});
+          sendMessage(senderId, {text: "Hey there I see you are in trouble 🤷"});
           sendMessage(senderId, {text: "Type ´schedule´ if you want to schedule reminders."});
           sendMessage(senderId, {text: "Type ´change´ if you want to change your reminders."});
           sendMessage(senderId, {text: "Type ´stop´ if you want me to stop sending you reminders."});
@@ -180,12 +180,12 @@ function processMessage(event) {
 			break;
 
         default:
-          sendMessage(senderId, {text: "Sorry, did not get that, can you try again"});
-          sendMessage(senderId, {text: "If you are in trouble just write 'SOS'"});
+          sendMessage(senderId, {text: "Sorry, did not get that 🤔 can you try again"});
+          sendMessage(senderId, {text: "If you are in trouble 🤷 just write 'SOS'"});
       }
     } else if (message.attachments) {
-      sendMessage(senderId, {text: "Sorry, I don't understand your request."});
-      sendMessage(senderId, {text: "If you are in trouble just write 'SOS'"});
+      sendMessage(senderId, {text: "Sorry, I don't understand your request 🤔"});
+      sendMessage(senderId, {text: "If you are in trouble 🤷 just write 'SOS'"});
     }
   }
 }
@@ -244,7 +244,7 @@ function updateDatabase(senderId, formattedMsg) {
 	  if (err) {
         console.log("Database error: " + err);
       } else {
-		sendMessage(senderId, {text: "I will send you a reminder everyday at that time."});
+		sendMessage(senderId, {text: "I will send you a reminder everyday at that time 😃 😜 "});
 	  }
   });
 }
@@ -255,8 +255,8 @@ var query = {user_id: senderId};
     if(err) {
       console.log("Database error: " + err);
     } else {
-      sendMessage(senderId, {text: "I will not send you reminders anymore. If you want to schedule a new reminder then just talk to me."})
-      sendMessage(senderId, {text: "I also have a good shoulder to cry on if you need someone to talk to!"})
+      sendMessage(senderId, {text: "I will not send you reminders anymore 🙄 If you want to schedule a new reminder then just talk to me."})
+      sendMessage(senderId, {text: "I also have a good shoulder to cry on if you need someone to talk to! 😍"})
     }
   });
 
