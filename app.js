@@ -78,11 +78,11 @@ function processPostback(event) {
       } else {
         var bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
-        greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day.";
+        greeting = "Hi " + name + ". " + "My name is Arthur and I can send you a reminder every day 😎";
       }
       sendMessage(senderId, {text: greeting});
       //Adding a delay to make Arthur look alive
-      setTimeout(confirmChangeTime(senderId), 3000);
+      setTimeout(function(){confirmChangeTime(senderId)}, 3000);
     });
   }
   else if (payload == "ChangeTimeYes") {
